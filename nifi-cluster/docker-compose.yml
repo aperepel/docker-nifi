@@ -29,7 +29,7 @@ services:
     image: aperepel/nifi
     # build: ../docker/
     ports:
-      - 9091:8080
+      - 9092:8080
     environment:
       NIFI_UI_BANNER_TEXT: 'Processing Cluster'
       NIFI_INSTANCE_ROLE: 'cluster-manager'
