@@ -20,7 +20,8 @@ services:
       - 10002
       - 10003
       - 10004
-
+    volumes:
+      - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs
     environment:
       NIFI_UI_BANNER_TEXT: 'Acquisition Node'
       NIFI_INSTANCE_ROLE: 'edge'
@@ -30,6 +31,8 @@ services:
     # build: ../docker/
     ports:
       - 9092:8080
+    volumes:
+      - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs
     environment:
       NIFI_UI_BANNER_TEXT: 'Processing Cluster'
       NIFI_INSTANCE_ROLE: 'cluster-manager'
@@ -37,12 +40,14 @@ services:
   worker:
     image: aperepel/nifi
     # build: ../docker/
-    environment:
-      NIFI_UI_BANNER_TEXT: 'Processing Node'
-      NIFI_INSTANCE_ROLE: 'cluster-node'
     ports:
       - 10000
       - 10001
       - 10002
       - 10003
       - 10004
+    volumes:
+      - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs
+    environment:
+      NIFI_UI_BANNER_TEXT: 'Processing Node'
+      NIFI_INSTANCE_ROLE: 'cluster-node'
