@@ -1,7 +1,7 @@
 FROM centos:7
 MAINTAINER Wade Schulz / Adapted from Andrew Grande
 
-RUN RUN yum -y update && yum -y install epel-release \
+RUN yum -y update && yum -y install epel-release \
 	java-1.8.0-openjdk \
 	krb5-workstation \
 	wget
