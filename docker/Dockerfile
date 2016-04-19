@@ -9,12 +9,14 @@ RUN apt-get -qqy update && apt-get -qqy install \
 COPY krb5.conf /etc/krb5.conf
 
 #RUN wget --no-verbose http://apache.mirrors.lucidnetworks.net/nifi/0.6.1/nifi-0.6.1-bin.tar.gz && tar zxf nifi*.tar.gz && rm -f nifi*.tar.gz
-RUN wget --no-verbose http://public-repo-1.hortonworks.com/HDF/1.1.1.0/nifi-1.1.1.0-12-bin.tar.gz && tar zxf nifi*.tar.gz && rm -f nifi*.tar.gz
+#RUN wget --no-verbose http://public-repo-1.hortonworks.com/HDF/1.1.1.0/nifi-1.1.1.0-12-bin.tar.gz && tar zxf nifi*.tar.gz && rm -f nifi*.tar.gz
+RUN wget --no-verbose http://public-repo-1.hortonworks.com/HDF/centos7/1.x/updates/1.2.0.0/HDF-1.2.0.0-91.tar.gz && tar zxf HDF*.tar.gz && rm -f HDF*.tar.gz
 
 VOLUME ["/output", "/flowconf", "/flowrepo",  "/contentrepo", "/databaserepo", "/provenancerepo"]
 
 #ENV NIFI_HOME=/nifi-0.6.1
-ENV NIFI_HOME=/nifi-1.1.1.0-12
+#ENV NIFI_HOME=/nifi-1.1.1.0-12
+ENV NIFI_HOME=/HDF-1.2.0.0/nifi
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
