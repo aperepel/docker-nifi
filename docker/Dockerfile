@@ -1,22 +1,22 @@
-FROM centos:7
+FROM java:8-jre
 MAINTAINER Wade Schulz / Adapted from Andrew Grande
 
-RUN yum -y update && yum -y install epel-release \
-	java-1.8.0-openjdk \
-	krb5-workstation \
-	wget
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -qqy update && apt-get -qqy install \
+        krb5-user
 
 COPY krb5.conf /etc/krb5.conf
 
-RUN wget --no-verbose http://apache.mirrors.lucidnetworks.net/nifi/0.6.1/nifi-0.6.1-bin.tar.gz && tar zxf nifi*.tar.gz && rm -f nifi*.tar.gz
-#RUN wget --no-verbose http://public-repo-1.hortonworks.com/HDF/1.1.1.0/nifi-1.1.1.0-12-bin.tar.gz && tar zxf nifi*.tar.gz && rm -f nifi*.tar.gz
+#RUN wget --no-verbose http://apache.mirrors.lucidnetworks.net/nifi/0.6.1/nifi-0.6.1-bin.tar.gz && tar zxf nifi*.tar.gz && rm -f nifi*.tar.gz
+RUN wget --no-verbose http://public-repo-1.hortonworks.com/HDF/1.1.1.0/nifi-1.1.1.0-12-bin.tar.gz && tar zxf nifi*.tar.gz && rm -f nifi*.tar.gz
 
 VOLUME ["/output", "/flowconf", "/flowrepo",  "/contentrepo", "/databaserepo", "/provenancerepo"]
 
-ENV NIFI_HOME=/nifi-0.6.1
-#ENV NIFI_HOME=/nifi-1.1.1.0-12
+#ENV NIFI_HOME=/nifi-0.6.1
+ENV NIFI_HOME=/nifi-1.1.1.0-12
 
-ENV JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 # web port
 EXPOSE 8080
