@@ -46,6 +46,7 @@ services:
       NIFI_JAVA_MAXHEAP: '-Xmx256m'
       KRB_REALM: realm.example.com
       NIFI_KEY_PASS: password
+      NIFI_ADMIN: user@realm.example.com
       #constraint:node: '=NODENAME'
 
   worker:

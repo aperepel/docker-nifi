@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <users>
-	<user dn="admin/admin">
+	<user dn="">
 		<role name="ROLE_ADMIN" />
 	</user>
 </users>

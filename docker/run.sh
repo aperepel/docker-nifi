@@ -70,6 +70,7 @@ configure_cluster_manager() {
   sed -i "s/nifi\.security\.keystoreType=.*$/nifi\.security\.keystoreType=PKCS12/g" $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.security\.keystorePasswd=.*$/nifi\.security\.keystorePasswd=${NIFI_KEY_PASS}/g" $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.security\.needClientAuth=.*$/nifi\.security\.needClientAuth=false/g" $NIFI_HOME/conf/nifi.properties
+  sed -i "s/dn=\"\"/dn=\"${NIFI_ADMIN}\"/g" $NIFI_HOME/conf/authorized-users.xml
 }
 
 splash
