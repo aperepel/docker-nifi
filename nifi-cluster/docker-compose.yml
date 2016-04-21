@@ -21,7 +21,8 @@ services:
       - 10003
       - 10004
     volumes:
-      - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs
+      - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs:ro
+      - /mnt/nifi:/mnt/nifi:ro
     environment:
       NIFI_UI_BANNER_TEXT: 'Acquisition Node'
       NIFI_INSTANCE_ROLE: 'edge'
@@ -33,6 +34,7 @@ services:
       - 9092:8080
     volumes:
       - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs
+      - /mnt/nifi:/mnt/nifi:ro
     environment:
       NIFI_UI_BANNER_TEXT: 'Processing Cluster'
       NIFI_INSTANCE_ROLE: 'cluster-manager'
@@ -48,6 +50,7 @@ services:
       - 10004
     volumes:
       - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs
+      - /mnt/nifi:/mnt/nifi:ro
     environment:
       NIFI_UI_BANNER_TEXT: 'Processing Node'
       NIFI_INSTANCE_ROLE: 'cluster-node'
