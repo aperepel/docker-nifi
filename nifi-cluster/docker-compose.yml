@@ -22,6 +22,7 @@ services:
       - 10004
     volumes:
       - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs:ro
+      - /etc/security/nifi/certs:/etc/security/nifi/certs
       - /HDPCONFIGPATH:/mnt/nifi:ro
     environment:
       NIFI_UI_BANNER_TEXT: 'Acquisition Node'
