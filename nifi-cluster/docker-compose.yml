@@ -26,6 +26,8 @@ services:
     environment:
       NIFI_UI_BANNER_TEXT: 'Acquisition Node'
       NIFI_INSTANCE_ROLE: 'edge'
+      ENV NIFI_JAVA_MINHEAP: '-Xmx256m'
+      ENV NIFI_JAVA_MAXHEAP: '-Xmx256m'
 
   ncm:
     image: aperepel/nifi
@@ -54,3 +56,5 @@ services:
     environment:
       NIFI_UI_BANNER_TEXT: 'Processing Node'
       NIFI_INSTANCE_ROLE: 'cluster-node'
+      ENV NIFI_JAVA_MINHEAP: '-Xmx256m'
+      ENV NIFI_JAVA_MAXHEAP: '-Xmx256m'
