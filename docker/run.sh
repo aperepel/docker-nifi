@@ -60,6 +60,12 @@ configure_cluster_manager() {
 
   # configure for authentication
   sed -i "s/nifi\.security\.user\.authority\.provider=.*$/nifi\.security\.user\.authority\.provider=cluster-ncm-provider/g" $NIFI_HOME/conf/nifi.properties
+
+  # configure https to allow auth
+  sed -i "s/nifi\.web\.http\.host=0\.0\.0\.0/nifi\.web\.http\.port=/g" $NIFI_HOME/conf/nifi.properties
+  sed -i "s/nifi\.web\.http\.port=8080/nifi\.web\.http\.port=/g" $NIFI_HOME/conf/nifi.properties
+  sed -i "s/nifi\.web\.https\.host=$/nifi\.web\.https\.host=0\.0\.0\.0/g" $NIFI_HOME/conf/nifi.properties
+  sed -i "s/nifi\.web\.https\.port=$/nifi\.web\.https\.port=8080/g" $NIFI_HOME/conf/nifi.properties
 }
 
 splash
