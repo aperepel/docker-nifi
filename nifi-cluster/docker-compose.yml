@@ -68,3 +68,4 @@ services:
       NIFI_JAVA_MINHEAP: '-Xms256m'
       NIFI_JAVA_MAXHEAP: '-Xmx256m'
       KRB_REALM: realm.example.com
+      NIFI_ADMIN: user@realm.example.com
