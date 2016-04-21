@@ -28,7 +28,7 @@
     <provider>                                                          
         <identifier>cluster-ncm-provider</identifier>                           
         <class>org.apache.nifi.cluster.authorization.ClusterManagerAuthorizationProvider</class>
-        <property name="Authority Provider Port"></property>
+        <property name="Authority Provider Port">25001</property>
         <property name="Authority Provider Threads">10</property>
         <property name="Authorized Users File">./conf/authorized-users.xml</property>
         <property name="Default User Roles"></property>
@@ -36,6 +36,6 @@
     <provider>
       <identifier>cluster-node-provider</identifier>
       <class>org.apache.nifi.cluster.authorization.NodeAuthorizationProvider</class>
-      <property name="Cluster Manager Authority Provider Port"></property>
+      <property name="Cluster Manager Authority Provider Port">25001</property>
     </provider>
 </authorityProviders>
