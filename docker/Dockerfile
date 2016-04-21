@@ -37,6 +37,8 @@ EXPOSE 10004
 ENV NIFI_JAVA_MINHEAP="-Xmx256m"
 ENV NIFI_JAVA_MAXHEAP="-Xmx256m"
 
+COPY authority-providers.xml $NIFI_HOME/conf/authority-providers.xml
+
 WORKDIR $NIFI_HOME/bin
 ADD ./run.sh .
 RUN chmod +x ./run.sh

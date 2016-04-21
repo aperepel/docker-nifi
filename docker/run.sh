@@ -13,12 +13,17 @@ configure_common() {
   sed -i 's/\.\/database_repository/\/databaserepo/g' $NIFI_HOME/conf/nifi.properties
   sed -i 's/\.\/provenance_repository/\/provenancerepo/g' $NIFI_HOME/conf/nifi.properties
 
-  sed -i 's/nifi\.kerberos\.krb5\.file=.*$/nifi\.kerberos\.krb5\.file=\/etc\/krb5.conf/g' $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.ui\.banner\.text=.*$/nifi.ui.banner.text=${NIFI_UI_BANNER_TEXT}/g" $NIFI_HOME/conf/nifi.properties
 
+  # configure heap size and GC use
   sed -i "s/#java\.arg\.13=-XX:+UseG1GC/java\.arg\.13=-XX:+UseG1GC/g" $NIFI_HOME/conf/bootstrap.conf
   sed -i "s/java\.arg\.2=-Xms.*$/java\.arg\.2=$NIFI_JAVA_MINHEAP/g" $NIFI_HOME/conf/bootstrap.conf
   sed -i "s/java\.arg\.3=-Xmx.*$/java\.arg\.3=$NIFI_JAVA_MAXHEAP/g" $NIFI_HOME/conf/bootstrap.conf
+
+  # add kerberos config path
+  sed -i 's/nifi\.kerberos\.krb5\.file=.*$/nifi\.kerberos\.krb5\.file=\/etc\/krb5.conf/g' $NIFI_HOME/conf/nifi.properties
+  sed -i 's/nifi\.security\.user\.credential\.cache\.duration=24 hours/nifi\.security\.user\.credential\.cache\.duration=12 hours/g' $NIFI_HOME/conf/nifi.properties
+  sed -i 's/nifi\.security\.user\.login\.identity\.provider=.*$/nifi\.security\.user\.login\.identity\.provider=kerberos-provider/g' $NIFI_HOME/conf/nifi.properties
 }
 
 configure_site2site() {
@@ -41,6 +46,9 @@ configure_cluster_node() {
   # the following properties point to the NCM - note we are using the network alias (implicitly created by docker-compose)
   sed -i "s/nifi\.cluster\.node\.unicast\.manager\.address=.*$/nifi.cluster.node.unicast.manager.address=ncm/g" $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.cluster\.node\.unicast\.manager\.protocol\.port=.*$/nifi.cluster.node.unicast.manager.protocol.port=20001/g" $NIFI_HOME/conf/nifi.properties
+
+  # configure for authentication
+  sed -i "s/nifi\.security\.user\.authority\.provider=.*$/nifi\.security\.user\.authority\.provider=cluster-node-provider/g" $NIFI_HOME/conf/nifi.properties
 }
 
 configure_cluster_manager() {
@@ -48,6 +56,9 @@ configure_cluster_manager() {
   sed -i "s/nifi\.cluster\.is\.manager=false/nifi.cluster.is.manager=true/g" $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.cluster\.manager\.address=.*$/nifi.cluster.manager.address=${HOSTNAME}/g" $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.cluster\.manager\.protocol\.port=.*$/nifi.cluster.manager.protocol.port=20001/g" $NIFI_HOME/conf/nifi.properties
+
+  # configure for authentication
+  sed -i "s/nifi\.security\.user\.authority\.provider=.*$/nifi\.security\.user\.authority\.provider=cluster-ncm-provider/g" $NIFI_HOME/conf/nifi.properties
 }
 
 splash
