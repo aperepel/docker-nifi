@@ -23,6 +23,7 @@ configure_common() {
   # add kerberos config
   sed -i 's/nifi\.kerberos\.krb5\.file=.*$/nifi\.kerberos\.krb5\.file=\/etc\/krb5.conf/g' $NIFI_HOME/conf/nifi.properties
   sed -i 's/nifi\.security\.user\.credential\.cache\.duration=24 hours/nifi\.security\.user\.credential\.cache\.duration=12 hours/g' $NIFI_HOME/conf/nifi.properties
+  sed -i "s/dn=\"\"/dn=\"${NIFI_ADMIN}\"/g" $NIFI_HOME/conf/authorized-users.xml
 }
 
 configure_site2site() {
@@ -68,7 +69,6 @@ configure_cluster_manager() {
   sed -i "s/nifi\.security\.keystoreType=.*$/nifi\.security\.keystoreType=PKCS12/g" $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.security\.keystorePasswd=.*$/nifi\.security\.keystorePasswd=${NIFI_KEY_PASS}/g" $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.security\.needClientAuth=.*$/nifi\.security\.needClientAuth=false/g" $NIFI_HOME/conf/nifi.properties
-  sed -i "s/dn=\"\"/dn=\"${NIFI_ADMIN}\"/g" $NIFI_HOME/conf/authorized-users.xml
   sed -i 's/nifi\.security\.user\.login\.identity\.provider=.*$/nifi\.security\.user\.login\.identity\.provider=kerberos-provider/g' $NIFI_HOME/conf/nifi.properties
   sed -i 's/KRB_REALM/${KRB_REALM}/g' $NIFI_HOME/conf/login-identity-providers.xml
 }
