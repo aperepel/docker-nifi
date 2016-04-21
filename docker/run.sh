@@ -68,6 +68,7 @@ configure_cluster_manager() {
   sed -i "s/nifi\.web\.https\.port=$/nifi\.web\.https\.port=8080/g" $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.security\.keystore=$/nifi\.security\.keystore=\/etc\/security\/nifi\/certs\/nifi\.pfx/g" $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.security\.keystoreType=.*$/nifi\.security\.keystoreType=PKCS12/g" $NIFI_HOME/conf/nifi.properties
+  sed -i "s/nifi\.security\.keystorePasswd=.*$/nifi\.security\.keystorePasswd=${NIFI_KEY_PASS}/g" $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.security\.needClientAuth=.*$/nifi\.security\.needClientAuth=false/g" $NIFI_HOME/conf/nifi.properties
 }
 
