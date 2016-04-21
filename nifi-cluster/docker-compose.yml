@@ -22,7 +22,7 @@ services:
       - 10004
     volumes:
       - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs:ro
-      - /mnt/nifi:/mnt/nifi:ro
+      - /HDPCONFIGPATH:/mnt/nifi:ro
     environment:
       NIFI_UI_BANNER_TEXT: 'Acquisition Node'
       NIFI_INSTANCE_ROLE: 'edge'
@@ -40,6 +40,9 @@ services:
     environment:
       NIFI_UI_BANNER_TEXT: 'Processing Cluster'
       NIFI_INSTANCE_ROLE: 'cluster-manager'
+      ENV NIFI_JAVA_MINHEAP: '-Xmx256m'
+      ENV NIFI_JAVA_MAXHEAP: '-Xmx256m'
+      #constraint:node: '=NODENAME'
 
   worker:
     image: aperepel/nifi
@@ -52,7 +55,8 @@ services:
       - 10004
     volumes:
       - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs
-      - /mnt/nifi:/mnt/nifi:ro
+      - /HDPCONFIGPATH:/mnt/nifi:ro
+      - /mnt/swarm/nifi:/scripts:ro
     environment:
       NIFI_UI_BANNER_TEXT: 'Processing Node'
       NIFI_INSTANCE_ROLE: 'cluster-node'
