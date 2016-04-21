@@ -20,7 +20,7 @@ configure_common() {
   sed -i "s/java\.arg\.2=-Xms.*$/java\.arg\.2=$NIFI_JAVA_MINHEAP/g" $NIFI_HOME/conf/bootstrap.conf
   sed -i "s/java\.arg\.3=-Xmx.*$/java\.arg\.3=$NIFI_JAVA_MAXHEAP/g" $NIFI_HOME/conf/bootstrap.conf
 
-  # add kerberos config path
+  # add kerberos config
   sed -i 's/nifi\.kerberos\.krb5\.file=.*$/nifi\.kerberos\.krb5\.file=\/etc\/krb5.conf/g' $NIFI_HOME/conf/nifi.properties
   sed -i 's/nifi\.security\.user\.credential\.cache\.duration=24 hours/nifi\.security\.user\.credential\.cache\.duration=12 hours/g' $NIFI_HOME/conf/nifi.properties
   sed -i 's/nifi\.security\.user\.login\.identity\.provider=.*$/nifi\.security\.user\.login\.identity\.provider=kerberos-provider/g' $NIFI_HOME/conf/nifi.properties

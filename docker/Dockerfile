@@ -37,6 +37,7 @@ EXPOSE 10004
 ENV NIFI_JAVA_MINHEAP="-Xmx256m"
 ENV NIFI_JAVA_MAXHEAP="-Xmx256m"
 
+COPY login-identity-providers.xml $NIFI_HOME/conf/login-identity-providers.xml
 COPY authority-providers.xml $NIFI_HOME/conf/authority-providers.xml
 
 WORKDIR $NIFI_HOME/bin
