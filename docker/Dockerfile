@@ -42,6 +42,7 @@ ENV NIFI_JAVA_MAXHEAP="-Xmx256m"
 
 COPY login-identity-providers.xml $NIFI_HOME/conf/login-identity-providers.xml
 COPY authority-providers.xml $NIFI_HOME/conf/authority-providers.xml
+COPY authorized-users.xml $NIFI_HOME/conf/authorized-users.xml
 
 WORKDIR $NIFI_HOME/bin
 ADD ./run.sh .

@@ -28,6 +28,7 @@ services:
       NIFI_INSTANCE_ROLE: 'edge'
       NIFI_JAVA_MINHEAP: '-Xms256m'
       NIFI_JAVA_MAXHEAP: '-Xmx256m'
+      KRB_REALM: realm.example.com
 
   ncm:
     image: aperepel/nifi
@@ -43,6 +44,8 @@ services:
       NIFI_INSTANCE_ROLE: 'cluster-manager'
       NIFI_JAVA_MINHEAP: '-Xms256m'
       NIFI_JAVA_MAXHEAP: '-Xmx256m'
+      KRB_REALM: realm.example.com
+      NIFI_KEY_PASS: password
       #constraint:node: '=NODENAME'
 
   worker:
@@ -63,3 +66,4 @@ services:
       NIFI_INSTANCE_ROLE: 'cluster-node'
       NIFI_JAVA_MINHEAP: '-Xms256m'
       NIFI_JAVA_MAXHEAP: '-Xmx256m'
+      KRB_REALM: realm.example.com

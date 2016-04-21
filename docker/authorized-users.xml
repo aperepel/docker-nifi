@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<users>
+	<user dn="admin/admin">
+		<role name="ROLE_ADMIN" />
+	</user>
+</users>
