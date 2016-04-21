@@ -4,7 +4,8 @@ MAINTAINER Wade Schulz / Adapted from Andrew Grande
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -qqy update && apt-get -qqy install \
-        krb5-user
+        krb5-user \
+        python
 
 COPY krb5.conf /etc/krb5.conf
 
