@@ -22,7 +22,6 @@ services:
       - 10004
     volumes:
       - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs:ro
-      - /etc/security/nifi/certs:/etc/security/nifi/certs:ro
       - /HDPCONFIGPATH:/mnt/nifi:ro
     environment:
       NIFI_UI_BANNER_TEXT: 'Acquisition Node'
@@ -37,6 +36,7 @@ services:
       - 9092:8080
     volumes:
       - /etc/security/nifi/keytabs:/etc/security/nifi/keytabs
+      - /etc/security/nifi/certs:/etc/security/nifi/certs:ro
       - /mnt/nifi:/mnt/nifi:ro
     environment:
       NIFI_UI_BANNER_TEXT: 'Processing Cluster'
