@@ -70,7 +70,7 @@ configure_cluster_manager() {
   sed -i "s/nifi\.security\.keystorePasswd=.*$/nifi\.security\.keystorePasswd=${NIFI_KEY_PASS}/g" $NIFI_HOME/conf/nifi.properties
   sed -i "s/nifi\.security\.needClientAuth=.*$/nifi\.security\.needClientAuth=false/g" $NIFI_HOME/conf/nifi.properties
   sed -i 's/nifi\.security\.user\.login\.identity\.provider=.*$/nifi\.security\.user\.login\.identity\.provider=kerberos-provider/g' $NIFI_HOME/conf/nifi.properties
-  sed -i 's/KRB_REALM/${KRB_REALM}/g' $NIFI_HOME/conf/login-identity-providers.xml
+  sed -i "s/KRB_REALM/${KRB_REALM}/g" $NIFI_HOME/conf/login-identity-providers.xml
 }
 
 splash
