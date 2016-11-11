@@ -34,7 +34,7 @@ configure_site2site() {
   sed -i "s/nifi\.remote\.input\.socket\.port=.*$/nifi.remote.input.socket.port=12345/g" $NIFI_HOME/conf/nifi.properties
   # unsecure for now so we don't complicate the setup with certificates
   sed -i "s/nifi\.remote\.input\.secure=true/nifi.remote.input.secure=false/g" $NIFI_HOME/conf/nifi.properties
-  sed -i "s/nifi\.remote\.input\.http\.enabled=true.*$/nifi\.remote\.input\.http\.enabled=false/g $NIFI_HOME/conf/nifi.properties
+  sed -i "s/nifi\.remote\.input\.http\.enabled=true.*$/nifi\.remote\.input\.http\.enabled=false/g" $NIFI_HOME/conf/nifi.properties
 }
 
 configure_cluster_node() {
