@@ -13,6 +13,8 @@ configure_common() {
   sed -i 's/\.\/database_repository/\/databaserepo/g' $NIFI_HOME/conf/nifi.properties
   sed -i 's/\.\/provenance_repository/\/provenancerepo/g' $NIFI_HOME/conf/nifi.properties
 
+  sed -i 's/nifi\.zookeeper\.connect\.string=.*$/nifi\.zookeeper\.connect\.string=$ZOOKEEPER/g' $NIFI_HOME/conf/nifi.properties
+
   sed -i "s/nifi\.ui\.banner\.text=.*$/nifi.ui.banner.text=${NIFI_UI_BANNER_TEXT}/g" $NIFI_HOME/conf/nifi.properties
 
   # configure heap size and GC use
