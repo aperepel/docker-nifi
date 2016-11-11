@@ -25,7 +25,8 @@ configure_common() {
   # add kerberos config
   sed -i 's/nifi\.kerberos\.krb5\.file=.*$/nifi\.kerberos\.krb5\.file=\/etc\/krb5.conf/g' $NIFI_HOME/conf/nifi.properties
   sed -i 's/nifi\.security\.user\.credential\.cache\.duration=24 hours/nifi\.security\.user\.credential\.cache\.duration=12 hours/g' $NIFI_HOME/conf/nifi.properties
-  sed -i "s/dn=\"\"/dn=\"${NIFI_ADMIN}\"/g" $NIFI_HOME/conf/authorized-users.xml
+  
+  sed -i "s/<property name=\"Initial Admin Identity\"><\/property>/<property name=\"Initial Admin Identity\">${NIFI_ADMIN}<\/property>/g" $NIFI_HOME/conf/authorizers.xml
 }
 
 configure_site2site() {
