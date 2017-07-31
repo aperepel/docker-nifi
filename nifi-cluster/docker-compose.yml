@@ -6,6 +6,7 @@ networks:
 
 services:
   nifinode:
+    image: HUBIMAGENAME
     volumes:
       - /etc/security/swarm/nifi/certs:/etc/security/certs:ro
       - /etc/security/swarm/nifi/keytabs:/etc/security/keytabs:ro
