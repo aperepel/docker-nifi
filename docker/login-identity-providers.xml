@@ -5,6 +5,6 @@
 		<class>org.apache.nifi.kerberos.KerberosProvider</class>
 		<property name="Default Realm">KRB_REALM</property>
 		<property name="Kerberos Config File">/etc/krb5.conf</property>
-		<property name="Authentication Expiration">12 hours</property>
+		<property name="Authentication Expiration">2 hours</property>
 	</provider>   
 </loginIdentityProviders>
