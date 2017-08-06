@@ -32,8 +32,8 @@ configure_common() {
   sed -i "s/nifi\.web\.http\.port=8080/nifi\.web\.http\.port=/g" $HDF_HOME/conf/nifi.properties
   sed -i "s/nifi\.web\.https\.host=$/nifi\.web\.https\.host=0\.0\.0\.0/g" $HDF_HOME/conf/nifi.properties
   sed -i "s/nifi\.web\.https\.port=$/nifi\.web\.https\.port=8081/g" $HDF_HOME/conf/nifi.properties
-  sed -i "s/nifi\.security\.keystore=$/nifi\.security\.keystore=\/etc\/security\/certs\/nifi\.pfx/g" $HDF_HOME/conf/nifi.properties
-  sed -i "s/nifi\.security\.keystoreType=.*$/nifi\.security\.keystoreType=PKCS12/g" $HDF_HOME/conf/nifi.properties
+  sed -i "s/nifi\.security\.keystore=$/nifi\.security\.keystore=\/etc\/security\/certs\/nifi\.jks/g" $HDF_HOME/conf/nifi.properties
+  sed -i "s/nifi\.security\.keystoreType=.*$/nifi\.security\.keystoreType=JKS/g" $HDF_HOME/conf/nifi.properties
   sed -i "s/nifi\.security\.keystorePasswd=.*$/nifi\.security\.keystorePasswd=${NIFI_KEY_PASS}/g" $HDF_HOME/conf/nifi.properties
   sed -i "s/nifi\.security\.needClientAuth=.*$/nifi\.security\.needClientAuth=false/g" $HDF_HOME/conf/nifi.properties
   sed -i 's/nifi\.security\.user\.login\.identity\.provider=.*$/nifi\.security\.user\.login\.identity\.provider=kerberos-provider/g' $HDF_HOME/conf/nifi.properties
@@ -42,6 +42,8 @@ configure_common() {
 
 splash
 configure_common
+
+exec keytool -genkeypair -alias nifiserver -keyalg RSA -keypass ${NIFI_KEY_PASS} -storepass ${NIFI_KEY_PASS} -keystore /etc/security/certs/nifi.jks -dname "CN=NIFI" -noprompt
 
 # must be an exec so NiFi process replaces this script and receives signals
 #exec ./bin/nifi.sh run
