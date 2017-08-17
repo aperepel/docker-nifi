@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 splash() {
   echo 'Environment:'
@@ -43,7 +43,9 @@ configure_common() {
 splash
 configure_common
 
-exec keytool -genkeypair -alias nifiserver -keyalg RSA -keypass ${NIFI_KEY_PASS} -storepass ${NIFI_KEY_PASS} -keystore /etc/security/certs/nifi.jks -dname "CN=NIFI" -noprompt
+if [ ! -f /etc/security/certs/nifi.jks ]; then
+  keytool -genkeypair -alias nifiserver -keyalg RSA -keypass ${NIFI_KEY_PASS} -storepass ${NIFI_KEY_PASS} -keystore /etc/security/certs/nifi.jks -dname "CN=NIFI" -noprompt
+fi
 
-# must be an exec so NiFi process replaces this script and receives signals
-exec ./bin/nifi.sh run
+bin/nifi.sh start
+tail -f /dev/null
