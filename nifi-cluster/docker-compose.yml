@@ -4,45 +4,23 @@ networks:
   default:
     driver: overlay
 
-
 services:
-
-  acquisition:
-    image: aperepel/nifi
-    # build: ../docker/
+  nifinode:
+    image: IMAGENAME
+    volumes:
+      - /etc/krb5.conf:/etc/krb5.conf:ro
+      - /etc/security/swarm/nifi/certs:/etc/security/certs
+      - /etc/security/swarm/nifi/keytabs:/etc/security/keytabs:ro
+      - /HDPCONFIGPATH:/mnt/nifi:ro
+      - /mnt/swarm/nifi/scripts:/scripts:ro
     ports:
-      # keep the same port number across instances,
-      # this will ensure Swarm distributes the containers
-      # properly based on port anti-affinity
-      - 9091:8080
-      - 10000
-      - 10001
-      - 10002
-      - 10003
-      - 10004
-
+      - 8080:8080
     environment:
-      NIFI_UI_BANNER_TEXT: 'Acquisition Node'
-      NIFI_INSTANCE_ROLE: 'edge'
-
-  ncm:
-    image: aperepel/nifi
-    # build: ../docker/
-    ports:
-      - 9091:8080
-    environment:
-      NIFI_UI_BANNER_TEXT: 'Processing Cluster'
-      NIFI_INSTANCE_ROLE: 'cluster-manager'
-
-  worker:
-    image: aperepel/nifi
-    # build: ../docker/
-    environment:
-      NIFI_UI_BANNER_TEXT: 'Processing Node'
-      NIFI_INSTANCE_ROLE: 'cluster-node'
-    ports:
-      - 10000
-      - 10001
-      - 10002
-      - 10003
-      - 10004
+      NIFI_UI_BANNER_TEXT: 'Banner Text'
+      NIFI_JAVA_MINHEAP: '-Xms4g'
+      NIFI_JAVA_MAXHEAP: '-Xmx8g'
+      KRB_REALM: 'REALM.EXAMPLE.COM'
+      NIFI_KEY_PASS: pass
+      NIFI_ADMIN: admin@REALM.EXAMPLE.COM
+      NIFI_ZOOKEEPER: 'ZKINSTANCELIST'
+      #constraint:node: '=NODEFQDN'

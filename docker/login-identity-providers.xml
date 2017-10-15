@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loginIdentityProviders>
+	<provider>
+		<identifier>kerberos-provider</identifier>
+		<class>org.apache.nifi.kerberos.KerberosProvider</class>
+		<property name="Default Realm">KRB_REALM</property>
+		<property name="Kerberos Config File">/etc/krb5.conf</property>
+		<property name="Authentication Expiration">2 hours</property>
+	</provider>   
+</loginIdentityProviders>

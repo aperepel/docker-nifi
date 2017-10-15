@@ -1,30 +1,43 @@
 FROM java:8-jre
-MAINTAINER Andrew Grande
+MAINTAINER Wade Schulz / Adapted from xemuliam/hdf-base
 
-RUN wget --no-verbose http://apache.mirrors.lucidnetworks.net/nifi/0.6.1/nifi-0.6.1-bin.tar.gz && tar zxf nifi*.tar.gz && rm -f nifi*.tar.gz
-#RUN wget --no-verbose http://public-repo-1.hortonworks.com/HDF/1.1.1.0/nifi-1.1.1.0-12-bin.tar.gz && tar zxf nifi*.tar.gz && rm -f nifi*.tar.gz
+ENV DEBIAN_FRONTEND=noninteractive
 
-VOLUME ["/output", "/flowconf", "/flowrepo",  "/contentrepo", "/databaserepo", "/provenancerepo"]
+RUN apt-get -qqy update && apt-get -qqy install \
+		curl \
+        krb5-user \
+        python \
+        unzip \
+        vim
 
-ENV NIFI_HOME=/nifi-0.6.1
-#ENV NIFI_HOME=/nifi-1.1.1.0-12
+# download Java Cryptography Extension
+RUN cd /tmp/ && \
+    curl -LO "http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip" -H 'Cookie: oraclelicense=accept-securebackup-cookie' && \
+    unzip jce_policy-8.zip && \
+    rm jce_policy-8.zip && \
+    yes |cp /tmp/UnlimitedJCEPolicyJDK8/*.jar /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/
 
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+# COPY krb5.conf /etc/krb5.conf # mount from host instead, can add here if needed
 
-# web port
-EXPOSE 8080
+ARG        DIST=https://public-repo-1.hortonworks.com/HDF/3.0.1.0/nifi-1.2.0.3.0.1.0-43-bin.tar.gz
+ARG        VERSION=1.2.0.3.0.1.0-43
+ENV        HDF_HOME=/opt/hdf
+RUN        mkdir -p ${HDF_HOME} && \
+           curl ${DIST} | tar xvz -C ${HDF_HOME} && \
+           mv ${HDF_HOME}/nifi-${VERSION}/* ${HDF_HOME} && \
+           rm -rf ${HDF_HOME}/nifi-${VERSION} && \
+           rm -rf nifi-${VERSION}-bin.tar.gz
+EXPOSE     8080 8081 8443
+VOLUME     ${HDF_HOME}/logs \
+           ${HDF_HOME}/flowfile_repository \
+           ${HDF_HOME}/database_repository \
+           ${HDF_HOME}/content_repository \
+           ${HDF_HOME}/provenance_repository
+WORKDIR    ${HDF_HOME}
 
-# listen port for web listening processor
-EXPOSE 8081
-
-# additional ports for user apps (bind them in a docker-compose.yml 'ports' section)
-EXPOSE 10000
-EXPOSE 10001
-EXPOSE 10002
-EXPOSE 10003
-EXPOSE 10004
-
-WORKDIR $NIFI_HOME/bin
-ADD ./run.sh .
-RUN chmod +x ./run.sh
-ENTRYPOINT ["./run.sh"]
+COPY authority-providers.xml /opt/hdf/conf/authority-providers.xml
+COPY authorized-users.xml /opt/hdf/conf/authorized-users.xml
+COPY login-identity-providers.xml /opt/hdf/conf/login-identity-providers.xml
+COPY run.sh /opt/hdf/run.sh
+RUN chmod +x /opt/hdf/run.sh
+CMD ./run.sh
