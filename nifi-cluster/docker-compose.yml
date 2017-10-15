@@ -8,7 +8,8 @@ services:
   nifinode:
     image: IMAGENAME
     volumes:
-      - /etc/security/swarm/nifi/certs:/etc/security/certs:ro
+      - /etc/krb5.conf:/etc/krb5.conf:ro
+      - /etc/security/swarm/nifi/certs:/etc/security/certs
       - /etc/security/swarm/nifi/keytabs:/etc/security/keytabs:ro
       - /HDPCONFIGPATH:/mnt/nifi:ro
       - /mnt/swarm/nifi/scripts:/scripts:ro

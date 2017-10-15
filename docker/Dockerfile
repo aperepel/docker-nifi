@@ -17,7 +17,7 @@ RUN cd /tmp/ && \
     rm jce_policy-8.zip && \
     yes |cp /tmp/UnlimitedJCEPolicyJDK8/*.jar /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/
 
-COPY krb5.conf /etc/krb5.conf
+# COPY krb5.conf /etc/krb5.conf # mount from host instead, can add here if needed
 
 ARG        DIST=https://public-repo-1.hortonworks.com/HDF/3.0.1.0/nifi-1.2.0.3.0.1.0-43-bin.tar.gz
 ARG        VERSION=1.2.0.3.0.1.0-43
